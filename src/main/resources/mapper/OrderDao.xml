@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.wuhen.car.dao.OrderDao">
+    <insert id="createOrder" parameterType="xyz.wuhen.car.entity.Order" >
+        insert into `order`(car_id, parking_lot) values (#{carId},#{parkingLot})
+    </insert>
+
+    <update id="endOrder">
+        update `order` set leave_datetime = now() where enter_datetime = leave_datetime and car_id = #{carId} and parking_lot = #{parkingLot}
+    </update>
+
+    <select id="getDateTime" resultType="string" parameterType="string">
+        select enter_datetime from `order` where car_id = #{carId} and enter_datetime = leave_datetime
+    </select>
+</mapper>

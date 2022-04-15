@@ -1,0 +1,16 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.wuhen.car.dao.ParkingSpaceDao">
+    <select id="countValidParkingSpace" resultType="int" parameterType="int">
+        select count(*) from parking_space where parking_lot_id = #{parkingLotId} and valid = 1;
+    </select>
+
+    <select id="countInValidParkingSpace" resultType="int" parameterType="int">
+        select count(*) from parking_space where parking_lot_id = #{parkingLotId} and valid = 0;
+    </select>
+
+    <update id="setParkingSpaceStatus" parameterType="xyz.wuhen.car.entity.ParkingSpace">
+        update parking_space set valid = #{valid} where parking_lot_id = #{parkingLotId} and area_id = #{areaId} and parking_space_id = #{parkingSpaceId}
+    </update>
+</mapper>
